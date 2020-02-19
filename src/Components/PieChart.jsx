@@ -29,7 +29,7 @@ export default function _PieChart() {
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <div style={{ width: "100%", height: 600, display: "flex" }}>
-        <h3 style={{ color: "white" }}>Restaurants</h3>
+        <h3 style={{ color: "white", maxWidth: "100px" }}>Restaurants</h3>
         <ResponsiveContainer aspect={1}>
           <PieChart>
             <Pie dataKey="value" data={orderFreqParsed} fill="#00A7C4" />
@@ -38,7 +38,7 @@ export default function _PieChart() {
         </ResponsiveContainer>
       </div>
       <div style={{ width: "100%", height: 600, display: "flex" }}>
-        <h3 style={{ color: "white" }}>Food</h3>
+        <h3 style={{ color: "white", minWidth: "100px" }}>Food</h3>
         <ResponsiveContainer aspect={1}>
           <PieChart>
             <Pie dataKey="value" data={foodFreqParsed} fill="#00A7C4" />
