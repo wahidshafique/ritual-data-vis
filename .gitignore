@@ -12,6 +12,7 @@ node_modules
 # production
 /build
 data.json
+datajs.js
 
 # misc
 .DS_Store

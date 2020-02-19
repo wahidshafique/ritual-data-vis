@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Card, CardContent, Typography, Paper } from "@material-ui/core";
-
+import {
+  Card,
+  CardContent,
+  Typography,
+  Paper,
+  ExpansionPanel,
+  ExpansionPanelSummary,
+  ExpansionPanelDetails
+} from "@material-ui/core";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ImportButton from "./ImportButton";
 
 const useStyles = makeStyles(theme => ({
   root: {
     transition: "0.3s all ease",
-    backgroundColor: "#00A7C4",
     verticalAlign: "center",
     margin: "0 auto",
     minWidth: 300,
@@ -16,7 +23,6 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     color: "white",
-    paddingBottom: 10,
     fontWeight: "bold",
     fontSize: 24
   },
@@ -24,6 +30,11 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 12
   },
   paper: {
+    "& > p": {
+      fontWeight: "bold",
+      color: "white"
+    },
+    backgroundColor: "#00A7C4",
     padding: 24,
     marginBottom: 12,
     marginTop: 12
@@ -31,37 +42,59 @@ const useStyles = makeStyles(theme => ({
   wrapper: {
     marginTop: theme.spacing(2),
     position: "relative"
+  },
+  expPanel: {
+    backgroundColor: "#00A7C4"
   }
 }));
 
-export default function EntryCard() {
+export default function EntryCard({ setMinHeight }) {
+  const [panelOpen, setPanelOpen] = useState(true);
   const classes = useStyles();
 
   return (
-    <Card variant="outlined" className={classes.root}>
-      <CardContent>
-        <Typography className={classes.title} gutterBottom>
+    <ExpansionPanel
+      onChange={(e, expanded) => setPanelOpen(expanded)}
+      expanded={panelOpen}
+    >
+      <ExpansionPanelSummary
+        className={classes.expPanel}
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="panel1a-content"
+        id="panel1a-header"
+      >
+        <Typography className={classes.title}>
           Ritual Data Visualizer
         </Typography>
-        <Paper elevation={3} className={classes.paper}>
-          <Typography gutterBottom>
-            Request your <a href="https://www.ritual.co/">Ritual</a> usage data
-            by emailing{" "}
-            <a
-              href="mailto:support@ritual.co?Subject=Personal%20Data%20Request"
-              target="_top"
-            >
-              support@ritual.co
-            </a>
-          </Typography>
-        </Paper>
-        <Paper className={classes.paper} elevation={3}>
-          <Typography gutterBottom>
-            Once you have the requested JSON file, import it here for processing
-          </Typography>
-        </Paper>
-        <ImportButton />
-      </CardContent>
-    </Card>
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails className={classes.expPanel}>
+        <Card variant="outlined" className={classes.root}>
+          <CardContent>
+            <Paper elevation={3} className={classes.paper}>
+              <Typography gutterBottom>
+                Request your <a href="https://www.ritual.co/">Ritual</a> usage
+                data by emailing{" "}
+                <a
+                  href="mailto:support@ritual.co?Subject=Personal%20Data%20Request"
+                  target="_top"
+                >
+                  support@ritual.co
+                </a>
+              </Typography>
+            </Paper>
+            <Paper className={classes.paper} elevation={3}>
+              <Typography gutterBottom>
+                Once you have the requested JSON file, import it here for
+                processing
+              </Typography>
+            </Paper>
+            <ImportButton
+              setMinHeight={setMinHeight}
+              setPanelOpen={setPanelOpen}
+            />
+          </CardContent>
+        </Card>
+      </ExpansionPanelDetails>
+    </ExpansionPanel>
   );
 }

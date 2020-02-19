@@ -1,11 +1,12 @@
-import React, { createRef, useState, useRef, useEffect } from "react";
+import React, { createRef, useState } from "react";
 import CheckIcon from "@material-ui/icons/Check";
 import SaveIcon from "@material-ui/icons/Save";
 import clsx from "clsx";
-import { blue } from "@material-ui/core/colors";
+import { blueGrey } from "@material-ui/core/colors";
 import { CircularProgress, Fab } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Alert from "@material-ui/lab/Alert";
+import { useAppDispatch } from "../appContext";
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
@@ -16,20 +17,20 @@ const useStyles = makeStyles(theme => ({
     marginTop: 16
   },
   buttonSuccess: {
-    backgroundColor: blue[50],
+    backgroundColor: blueGrey[300],
     "&:hover": {
-      backgroundColor: blue[100]
+      backgroundColor: blueGrey[400]
     }
   },
   fabProgress: {
-    color: blue[100],
+    color: blueGrey[100],
     position: "absolute",
     top: 34,
     left: -6,
     zIndex: 1
   },
   buttonProgress: {
-    color: blue[100],
+    color: blueGrey[100],
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -50,9 +51,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function ImportButton() {
+export default function ImportButton({ setPanelOpen, setMinHeight }) {
   const fileInput = createRef();
-  const [ritualData, setRitualData] = useState(null);
+  //const [ritualData, setRitualData] = useState(null);
+  const dispatch = useAppDispatch();
   const [errMsg, setErrMsg] = useState(null);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -92,7 +94,10 @@ export default function ImportButton() {
 
     fr.onload = e => {
       console.log(e);
-      setRitualData(JSON.parse(e.target.result));
+      dispatch({ type: "setRitualData", payload: JSON.parse(e.target.result) });
+
+      setPanelOpen(false);
+      setMinHeight("0vh");
     };
 
     fr.onloadstart = e => {
@@ -105,8 +110,6 @@ export default function ImportButton() {
       setLoading(false);
     };
   };
-
-  console.log(ritualData);
 
   return (
     <>
