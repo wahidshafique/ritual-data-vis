@@ -1,6 +1,6 @@
 // src/count-context.js
 import React from "react";
-import tester from "./datajs";
+//import tester from "./datajs";
 const AppStateContext = React.createContext();
 const AppDispatchContext = React.createContext();
 
@@ -17,7 +17,7 @@ function AppReducer(state, action) {
 
 function AppProvider({ children }) {
   const [state, dispatch] = React.useReducer(AppReducer, {
-    ritualData: tester || null
+    ritualData: null
   });
   return (
     <AppStateContext.Provider value={state}>
