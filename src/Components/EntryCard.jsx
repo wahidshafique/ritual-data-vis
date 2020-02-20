@@ -75,10 +75,10 @@ export default function EntryCard({ setMinHeight }) {
                 Request your <a href="https://www.ritual.co/">Ritual</a> usage
                 data by emailing{" "}
                 <a
-                  href="mailto:support@ritual.co?Subject=Personal%20Data%20Request"
+                  href="mailto:privacy@ritual.co?Subject=Personal%20Data%20Request"
                   target="_top"
                 >
-                  support@ritual.co
+                  privacy@ritual.co
                 </a>
               </Typography>
             </Paper>
